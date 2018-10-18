@@ -1,0 +1,495 @@
+name: "LLCNN-18"
+layer {
+  name: "data"
+  type: "HDF5Data"
+  top: "data"
+  top: "label"
+  hdf5_data_param {
+    source: "examples/LLNet/1channel/train.txt"
+    batch_size: 64
+  }
+  include: { phase: TRAIN }
+}
+layer {
+  name: "data"
+  type: "HDF5Data"
+  top: "data"
+  top: "label"
+  hdf5_data_param {
+    source: "examples/LLNet/1channel/test.txt"
+    batch_size: 16
+  }
+  include: { phase: TEST }
+}
+
+layer {
+    bottom: "data"
+    top: "conv1"
+    name: "conv1"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "conv1"
+    top: "conv1"
+    name: "relu1"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "conv1"
+    top: "conv2"
+    name: "conv2"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 1
+        pad: 0
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "conv1"
+    top: "conv3"
+    name: "conv3"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "conv3"
+    top: "conv3"
+    name: "relu3"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "conv3"
+    top: "conv4"
+    name: "conv4"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "conv2"
+    bottom: "conv4"
+    top: "res2a"
+    name: "res2a"
+    type: "Eltwise"
+    eltwise_param {
+        operation: SUM
+    }
+}
+
+layer {
+    bottom: "res2a"
+    top: "res2a"
+    name: "res2a_relu"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "res2a"
+    top: "conv5"
+    name: "conv5"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "conv5"
+    top: "conv5"
+    name: "relu5"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "conv5"
+    top: "conv6"
+    name: "conv6"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "res2a"
+    bottom: "conv6"
+    top: "res2b"
+    name: "res2b"
+    type: "Eltwise"
+    eltwise_param {
+        operation: SUM
+    }
+}
+
+layer {
+    bottom: "res2b"
+    top: "res2b"
+    name: "res2b_relu"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "res2b"
+    top: "conv7"
+    name: "conv7"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 1
+        pad: 0
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+
+    }
+}
+
+layer {
+    bottom: "res2b"
+    top: "conv8"
+    name: "conv8"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "conv8"
+    top: "conv8"
+    name: "conv8_relu"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "conv8"
+    top: "conv9"
+    name: "conv9"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "conv7"
+    bottom: "conv9"
+    top: "res3a"
+    name: "res3a"
+    type: "Eltwise"
+    eltwise_param {
+        operation: SUM
+    }
+}
+
+layer {
+    bottom: "res3a"
+    top: "res3a"
+    name: "res3a_relu"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "res3a"
+    top: "conv10"
+    name: "conv10"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+
+    }
+}
+
+layer {
+    bottom: "conv10"
+    top: "conv10"
+    name: "relu10"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "conv10"
+    top: "conv11"
+    name: "conv11"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "res3a"
+    bottom: "conv11"
+    top: "res3b"
+    name: "res3b"
+    type: "Eltwise"
+    eltwise_param {
+        operation: SUM
+    }
+}
+
+layer {
+    bottom: "res3b"
+    top: "res3b"
+    name: "res3b_relu"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "res3b"
+    top: "conv12"
+    name: "conv12"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 1
+        pad: 0
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+
+    }
+}
+
+layer {
+    bottom: "res3b"
+    top: "conv13"
+    name: "conv13"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "conv13"
+    top: "conv13"
+    name: "conv13_relu"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "conv13"
+    top: "conv14"
+    name: "conv14"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "conv12"
+    bottom: "conv14"
+    top: "res4a"
+    name: "res4a"
+    type: "Eltwise"
+    eltwise_param {
+        operation: SUM
+    }
+}
+
+layer {
+    bottom: "res4a"
+    top: "res4a"
+    name: "res4a_relu"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "res4a"
+    top: "conv15"
+    name: "conv15"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+
+    }
+}
+
+layer {
+    bottom: "conv15"
+    top: "conv15"
+    name: "relu15"
+    type: "ReLU"
+}
+
+layer {
+    bottom: "conv15"
+    top: "conv16"
+    name: "conv16"
+    type: "Convolution"
+    convolution_param {
+        num_output: 64
+        kernel_size: 3
+        pad: 1
+        stride: 1
+        weight_filler {
+            type: "msra"
+        }
+        
+    }
+}
+
+layer {
+    bottom: "res4a"
+    bottom: "conv16"
+    top: "res4b"
+    name: "res4b"
+    type: "Eltwise"
+    eltwise_param {
+        operation: SUM
+    }
+}
+
+layer {
+    bottom: "res4b"
+    top: "res4b"
+    name: "res4b_relu"
+    type: "ReLU"
+}
+
+layer {
+  name: "conv17"
+  type: "Convolution"
+  bottom: "res4b"
+  top: "conv17"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 0.1
+  }
+  convolution_param {
+    num_output: 1
+    kernel_size: 3
+    stride: 1
+    pad: 1
+    weight_filler {
+      type: "msra"
+    }
+    
+  }
+}
+
+layer {
+  name: "ssimloss"
+  type: "SSIMLoss"
+  bottom: "conv17"
+  bottom: "label"
+  top: "loss"  
+  loss_weight: 1             # <- set whatever you fancy
+  ssim_loss_param{
+    kernel_size: 8           # <- The kernel size is linked to the gaussian variance (circular). The kernel encloses +/1 3*sigma 
+    stride: 8                # <- Equal strides in both dimensions
+    c1: 0.0001               # <- Let these be
+    c2: 0.001                # <- Let these be
+  }
+}
+
