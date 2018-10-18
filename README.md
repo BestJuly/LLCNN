@@ -4,7 +4,8 @@ The code can be used in caffe, which supports SSIM loss.
 
 ## Network Architecture 
 We use one convolutional layer to do pre-processing and another convolutional layer to fuse feature maps and generate the output image. Several special-designed convolutional modules are placed between these two convolutional layers.
-![image](./img/network.PNG)   
+![image](./img/network.PNG) 
+### Special designed module
 The several special-designed convolutional module is inspired by residual learning. The architecture is shown as follows.   
 ![image](./img/module.PNG)   
 
