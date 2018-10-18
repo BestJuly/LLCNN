@@ -1,6 +1,6 @@
 # LLCNN
 This is the training code for [LLCNN: A convolutional neural network for low-light image enhancement](https://ieeexplore.ieee.org/abstract/document/8305143).   
-The code can be used in caffe, which supports SSIM loss. 
+The code can be used in caffe. The official version of caffe may not support SSIM loss function. You need to add SSIM loss layer or just use [this](https://github.com/onalbach/caffe-deep-shading).
 
 ## Network Architecture 
 We use one convolutional layer to do pre-processing and another convolutional layer to fuse feature maps and generate the output image. Several special-designed convolutional modules are placed between these two convolutional layers.
